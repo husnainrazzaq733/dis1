@@ -34,7 +34,7 @@ def call_groq(prompt, api_key, max_tokens=2048):
     payload = json.dumps({
         "model": "llama-3.3-70b-versatile",
         "messages": [
-            {"role": "system", "content": "You are an expert pharmacy exam assistant for Dispensing Technique II."},
+            {"role": "system", "content": "You are an expert pharmacy exam assistant for Applied Sciences I. You must ONLY answer using the provided context."},
             {"role": "user", "content": prompt}
         ],
         "temperature": 0.4,
@@ -78,7 +78,12 @@ def ask():
     context = '\n\n'.join([f"[Page {c['page']}]\n{c['text']}" for c in relevant])
 
     if qtype == 'short':
-        prompt = f"""You are an expert tutor. Provide a BRIEF answer (worth 2 marks, 3-5 lines) to the question.
+        prompt = f"""You are an expert tutor for Applied Sciences I. Provide a BRIEF answer (worth 2 marks, 3-5 lines) to the question.
+
+RULES:
+- You must ONLY use the provided content to answer.
+- If the answer cannot be found in the CONTENT, reply EXACTLY with: "Is sawal ka jawab AS-I book mein nahi hai."
+- Do NOT use your general outside knowledge to answer.
 - Use **Bold** for key terms and headings.
 - No page numbers or source mentions.
 - Answer directly based on this content: {context}
@@ -86,21 +91,20 @@ def ask():
 QUESTION: {question}
 SHORT ANSWER:"""
     else:
-        prompt = f"""You are an expert tutor. Provide a DETAILED answer (worth 8 marks) to the question.
+        prompt = f"""You are an expert tutor for Applied Sciences I. Provide a detailed answer (worth 4 marks) to the question.
+
+RULES:
+- You must ONLY use the provided content to answer.
+- If the answer cannot be found in the CONTENT, reply EXACTLY with: "Is sawal ka jawab AS-I book mein nahi hai."
+- Do NOT use your general outside knowledge to answer.
 - Use **Bold Headings** and sub-headings.
-- Use bullet points for classification.
-- Cover all major points.
+- Use bullet points if helpful for classification.
+- Keep the answer focused and comprehensive enough for 4 marks.
 - No page numbers or source mentions.
 - Answer directly based on this content: {context}
 
 QUESTION: {question}
-LONG DETAILED ANSWER:"""
-
-    try:
-        answer = call_groq(prompt, api_key)
-        return jsonify({'answer': answer})
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
+LONG ANSWER (4 Marks):"""
 
     try:
         answer = call_groq(prompt, api_key)
@@ -110,7 +114,7 @@ LONG DETAILED ANSWER:"""
 
 if __name__ == '__main__':
     print("=" * 50)
-    print("  Chat with Dispensing-II (Powered by Groq)")
+    print("  Chat with AS-I (Powered by Groq)")
     print("  Open: http://localhost:5000")
     print("=" * 50)
     app.run(debug=False, port=5000)

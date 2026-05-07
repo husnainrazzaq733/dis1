@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Dispensing-II | PMF Study Assistant</title>
+<title>AS-I | PMF Study Assistant</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet"/>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -98,10 +98,10 @@ header{background:linear-gradient(135deg,#1e0a3c,#0d1117);border-bottom:1px soli
 
 <header>
   <div class="logo">
-    <div class="logo-icon">📚</div>
+    <div class="logo-icon">💻</div>
     <div>
-      <h1>Dispensing-II Assistant</h1>
-      <p>PMF Study Tool · 170 Pages</p>
+      <h1>AS-I Assistant</h1>
+      <p>PMF Study Tool · Applied Sciences I</p>
     </div>
   </div>
   <span id="apiBadge" class="ok">✓ API Ready</span>
@@ -126,35 +126,33 @@ header{background:linear-gradient(135deg,#1e0a3c,#0d1117);border-bottom:1px soli
       </div>
       <div>
         <p class="sb-title">⚡ Quick Questions</p>
-        <button class="quick-btn" onclick="askQuick('What is a drug? Define and classify.')">💊 Drug ki definition</button>
-        <button class="quick-btn" onclick="askQuick('What are dosage forms? Explain types.')">🧴 Dosage forms</button>
-        <button class="quick-btn" onclick="askQuick('Explain routes of drug administration.')">💉 Routes of administration</button>
-        <button class="quick-btn" onclick="askQuick('What are antibiotics? Classify them.')">🦠 Antibiotics</button>
-        <button class="quick-btn" onclick="askQuick('What is sterilization? Explain methods.')">🧪 Sterilization</button>
-        <button class="quick-btn" onclick="askQuick('What are drug incompatibilities?')">⚗️ Incompatibilities</button>
-        <button class="quick-btn" onclick="askQuick('Explain metric system of weights and measures.')">📏 Weights & Measures</button>
-        <button class="quick-btn" onclick="askQuick('What is toxicology and what are antidotes?')">☠️ Toxicology</button>
+        <button class="quick-btn" onclick="askQuick('What is a Computer System? Explain CPU and RAM.')">💻 Computer & CPU</button>
+        <button class="quick-btn" onclick="askQuick('Explain different types of computers.')">🖥️ Types of Computers</button>
+        <button class="quick-btn" onclick="askQuick('What are input and output devices?')">⌨️ Input/Output Devices</button>
+        <button class="quick-btn" onclick="askQuick('Explain software and its types.')">💾 Software</button>
+        <button class="quick-btn" onclick="askQuick('What is an operating system?')">⚙️ Operating System</button>
+        <button class="quick-btn" onclick="askQuick('What is MS Word used for?')">📝 MS Word</button>
       </div>
     </aside>
     <div class="chat-main">
       <div id="messages">
         <div class="welcome" id="welcomeCard">
-          <span class="welcome-icon">📚</span>
+          <span class="welcome-icon">💻</span>
           <h2>Book se koi bhi sawal pochein</h2>
-          <p>Dispensing Technique II ke 170 pages se AI jawab dega.<br/>Ya upar Question Generator use karein!</p>
+          <p>Applied Sciences I ki book se AI jawab dega.</p>
         </div>
       </div>
       <div class="input-bar">
         <div class="chat-toggles">
           <button class="toggle-btn active" id="chat-short" onclick="setChatType('short')">Short (2 Marks)</button>
-          <button class="toggle-btn" id="chat-long" onclick="setChatType('long')">Long (8 Marks)</button>
+          <button class="toggle-btn" id="chat-long" onclick="setChatType('long')">Long (4 Marks)</button>
         </div>
         <div class="input-row">
           <textarea id="qInput" rows="1" placeholder="Sawal likhein... (Enter = Send)"></textarea>
           <button id="sendBtn" onclick="sendMessage()">➤</button>
         </div>
         <div id="statusBar"></div>
-        <p class="hint">Dispensing Technique II · Punjab Medical Faculty · 170 Pages</p>
+        <p class="hint">Applied Sciences I · Punjab Medical Faculty</p>
       </div>
     </div>
   </div>
@@ -167,9 +165,6 @@ let apiKey = localStorage.getItem('groq_key') || DEFAULT_KEY;
 // Init
 if(document.getElementById('apiKeyInput'))
   document.getElementById('apiKeyInput').value = apiKey;
-
-// Tab switching removed
-// generateQ removed
 
 // API key
 function saveKey(){
@@ -198,7 +193,6 @@ qInput.addEventListener('keydown', function(e){
 });
 
 function askQuick(q){
-  switchTab('chat');
   document.getElementById('qInput').value = q;
   sendMessage();
 }
